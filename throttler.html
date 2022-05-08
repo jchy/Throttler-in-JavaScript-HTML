@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Throttling</title>
+  </head>
+  <body>
+    <div id="container">
+      <div id="count">0</div>
+      <button id="btn">Click Me</button>
+    </div>
+    <script>
+      window.addEventListener("load", ()=>{
+        let c=0;
+        function incr(){
+          c++;
+          const cnt = document.querySelector("#count");
+          cnt.textContent = c;
+        }
+        const btn = document.querySelector("#btn");
+        btn.addEventListener("click",throttle(incr, 1000));
+      })
+
+      function throttle(fn,delay){
+        let flag = true;
+        return ()=>{
+          if(flag){
+            flag = false;
+            fn();
+            setTimeout(()=>{
+              flag = true;
+            },delay);
+          }
+        }
+      }
+
+    </script>
+  </body>
+</html>
